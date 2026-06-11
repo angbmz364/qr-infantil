@@ -112,63 +112,59 @@ Generar Código QR
 
 </div>
 
-<script>
-
-function generarQR(){
-
-let nino = document.getElementById("nino").value;
-let apoderado = document.getElementById("apoderado").value;
-let telefono = document.getElementById("telefono").value;
-let direccion = document.getElementById("direccion").value;
-let redes = document.getElementById("redes").value;
-
-if(!nino || !apoderado || !telefono){
-alert("Complete los campos obligatorios.");
-return;
-}
-
-let enlace =
-"https://celaanaya52-sudo.github.io/qr-infantil/perfil.html?" +
-"nino=" + encodeURIComponent(nino) +
-"&apoderado=" + encodeURIComponent(apoderado) +
-"&telefono=" + encodeURIComponent(telefono) +
-"&direccion=" + encodeURIComponent(direccion) +
-"&redes=" + encodeURIComponent(redes);
-
-let qrURL =
-"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
-encodeURIComponent(enlace);
-
-document.getElementById("resultado").innerHTML =
-`
-<h3>QR generado</h3>
-<img src="${qrURL}">
-`;
-
-}
-</script>
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDc7NTMwOUPMn6zrECt5Xqlb_-3T5FewkQ",
-    authDomain: "qr-infantil.firebaseapp.com",
-    projectId: "qr-infantil",
-    storageBucket: "qr-infantil.firebasestorage.app",
-    messagingSenderId: "380749800054",
-    appId: "1:380749800054:web:a9d876ceb12a636c1a3557",
-    measurementId: "G-W5YHYQ3W99"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyDc7NTMwOUPMn6zrECt5Xqlb_-3T5FewkQ",
+  authDomain: "qr-infantil.firebaseapp.com",
+  projectId: "qr-infantil",
+  storageBucket: "qr-infantil.firebasestorage.app",
+  messagingSenderId: "380749800054",
+  appId: "1:380749800054:web:a9d876ceb12a636c1a3557"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.generarQR = async function() {
+
+  let nino = document.getElementById("nino").value;
+  let apoderado = document.getElementById("apoderado").value;
+  let telefono = document.getElementById("telefono").value;
+  let direccion = document.getElementById("direccion").value;
+  let redes = document.getElementById("redes").value;
+
+  if(!nino || !apoderado || !telefono){
+    alert("Complete los campos obligatorios.");
+    return;
+  }
+
+  await addDoc(collection(db, "REGISTROS"), {
+    Niño: nino,
+    Apoderado: apoderado,
+    Teléfono: telefono,
+    Dirección: direccion,
+    "Red Social": redes,
+    Fecha: new Date().toISOString()
+  });
+
+  let enlace =
+  "https://celaanaya52-sudo.github.io/qr-infantil/perfil.html?" +
+  "nino=" + encodeURIComponent(nino) +
+  "&apoderado=" + encodeURIComponent(apoderado) +
+  "&telefono=" + encodeURIComponent(telefono) +
+  "&direccion=" + encodeURIComponent(direccion) +
+  "&redes=" + encodeURIComponent(redes);
+
+  let qrURL =
+  "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+  encodeURIComponent(enlace);
+
+  document.getElementById("resultado").innerHTML =
+  `<h3>QR generado</h3><img src="${qrURL}">`;
+}
 </script>
 </body>
 </html>
