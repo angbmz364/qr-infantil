@@ -1,217 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QR Infantil Seguro</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Infantil Seguro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="contenedor">
+      <div class="icono">🛡️</div>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+      <h1>QR Infantil Seguro</h1>
 
-body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#6B8E74,#D6C7A1);
-}
+      <p>Complete los datos para generar el QR.</p>
 
-.contenedor{
-    width:500px;
-    max-width:90%;
-    background:#F5F1E8;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.2);
-    text-align:center;
-}
+      <input type="text" id="nino" required placeholder="Nombre del niño" />
+      <input type="text" id="apoderado" required  placeholder="Nombre del apoderado" />
+      <input type="text" id="telefono" required  placeholder="Número de celular" />
+      <input type="text" id="direccion" required placeholder="Dirección" />
+      <input type="text" id="redes" placeholder="Red social (opcional)" />
+      <input type="text" id="medicamentos" placeholder="Medicamentos (opcional)"/>
+      <input type="text" id="alergias" placeholder="Alergias (opcional)" />
+      <input
+        type="text"
+        id="importante"
+        placeholder="Información importante (opcional)"
+      />
 
-.icono{
-    font-size:60px;
-}
-
-h1{
-    color:#3E3E3E;
-    margin:10px 0;
-}
-
-p{
-    color:#555;
-    margin-bottom:20px;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border:1px solid #bbb;
-    border-radius:10px;
-    font-size:15px;
-}
-
-input:focus{
-    outline:none;
-    border-color:#6B8E74;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    margin-top:15px;
-    border:none;
-    border-radius:10px;
-    background:#6B8E74;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#587660;
-}
-
-#resultado{
-    margin-top:25px;
-}
-
-#resultado img{
-    width:250px;
-}
-</style>
-</head>
-<body>
-
-<div class="contenedor">
-
-<div class="icono">🛡️</div>
-
-<h1>QR Infantil Seguro</h1>
-
-<p>Complete los datos para generar el QR.</p>
-
-<input type="text" id="nino" placeholder="Nombre del niño">
-
-<input type="text" id="apoderado" placeholder="Nombre del apoderado">
-
-<input type="text" id="telefono" placeholder="Número de celular">
-
-<input type="text" id="direccion" placeholder="Dirección">
-
-<input type="text" id="redes" placeholder="Red social (opcional)">
-    
-<input type="text" id="medicamentos" placeholder="Medicamentos (opcional)">
-
-<input type="text" id="alergias" placeholder="Alergias (opcional)">
-
-<input type="text" id="importante" placeholder="Información importante (opcional)">
-
-<button onclick="generarQR()">
-Generar Código QR
-</button>
-
-<div id="resultado"></div>
-
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDc7NTMwOUPMn6zrECt5Xqlb_-3T5FewkQ",
-  authDomain: "qr-infantil.firebaseapp.com",
-  projectId: "qr-infantil",
-  storageBucket: "qr-infantil.firebasestorage.app",
-  messagingSenderId: "380749800054",
-  appId: "1:380749800054:web:a9d876ceb12a636c1a3557"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.generarQR = async function() {
-
-  let nino = document.getElementById("nino").value;
-  let apoderado = document.getElementById("apoderado").value;
-  let telefono = document.getElementById("telefono").value;
-  let direccion = document.getElementById("direccion").value;
-  let redes = document.getElementById("redes").value;
-  let medicamentos = document.getElementById("medicamentos").value;
-  let alergias = document.getElementById("alergias").value;
-  let importante = document.getElementById("importante").value;
-
-  if(!nino || !apoderado || !telefono){
-    alert("Complete los campos obligatorios.");
-    return;
-  }
-
-  console.log(
-    `Niño: ${nino},
-    Apoderado: ${apoderado},
-    Teléfono: ${telefono},
-    Dirección: ${direccion},
-    "Red Social": ${redes},
-     Medicamentos: ${medicamentos},
-     Alergias: ${alergias},
-     Importante: ${importante},`
-  )
-
-  await addDoc(collection(db, "REGISTROS"), {
-    Niño: nino,
-    Apoderado: apoderado,
-    Teléfono: telefono,
-    Dirección: direccion,
-    "Red Social": redes,
-     Medicamentos: medicamentos,
-     Alergias: alergias,
-     Importante: importante,
-    Fecha: new Date().toISOString()
-  });
-    fetch(
-  "https://script.google.com/macros/s/AKfycbw8NrpEyGPBlR_l7he0bz-ByYdZGO4bioGwc83KJTu1btgiW2GRPkMkUdI444dNeqYCaw/exec",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain"
-    },
-body: JSON.stringify({
-  nino: nino,
-  apoderado: apoderado,
-  telefono: telefono,
-  direccion: direccion,
-  redes: redes,
-  medicamentos: medicamentos,
-  alergias: alergias,
-  importante: importante
-})
-  }
-).catch(error => {
-  console.log("Error Google Sheets:", error);
-});
-
-let enlace =
-"https://celaanaya52-sudo.github.io/qr-infantil/perfil.html?" +
-"nino=" + encodeURIComponent(nino) +
-"&apoderado=" + encodeURIComponent(apoderado) +
-"&telefono=" + encodeURIComponent(telefono) +
-"&direccion=" + encodeURIComponent(direccion) +
-"&redes=" + encodeURIComponent(redes) +
-"&medicamentos=" + encodeURIComponent(medicamentos) +
-"&alergias=" + encodeURIComponent(alergias) +
-"&importante=" + encodeURIComponent(importante);
-
-  let qrURL =
-  "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
-  encodeURIComponent(enlace);
-
-  document.getElementById("resultado").innerHTML =
-  `<h3>QR generado</h3><img src="${qrURL}">`;
-}
-</script>
-</body>
+      <button id="generateQR">Generar Código QR</button>
+      
+      <div id="resultado"></div>
+    </main>
+    <script src="scripts.js"></script>
+  </body>
 </html>
