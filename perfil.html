@@ -116,6 +116,12 @@ h1{
 
         <p><strong>📱 Redes Sociales:</strong> <span id="redes"></span></p>
 
+        <p><strong>💊 Medicamentos:</strong> <span id="medicamentos"></span></p>
+
+        <p><strong>⚠️ Alergias:</strong> <span id="alergias"></span></p>
+
+        <p><strong>❗ Información importante:</strong> <span id="importante"></span></p>
+
     </div>
 
     <div class="mensaje">
@@ -148,12 +154,18 @@ const apoderado = params.get("apoderado") || "-";
 const telefono = params.get("telefono") || "";
 const direccion = params.get("direccion") || "-";
 const redes = params.get("redes") || "-";
-
+const medicamentos = params.get("medicamentos") || "-";
+const alergias = params.get("alergias") || "-";
+const importante = params.get("importante") || "-";
+    
 document.getElementById("nino").textContent = nino;
 document.getElementById("apoderado").textContent = apoderado;
 document.getElementById("telefono").textContent = telefono || "-";
 document.getElementById("direccion").textContent = direccion;
 document.getElementById("redes").textContent = redes;
+document.getElementById("medicamentos").textContent = medicamentos;
+document.getElementById("alergias").textContent = alergias;
+document.getElementById("importante").textContent = importante;
 
 document.getElementById("btnLlamar").href =
 "tel:" + telefono;
