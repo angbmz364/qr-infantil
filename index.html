@@ -103,6 +103,12 @@ button:hover{
 <input type="text" id="direccion" placeholder="Dirección">
 
 <input type="text" id="redes" placeholder="Red social (opcional)">
+    
+<input type="text" id="medicamentos" placeholder="Medicamentos (opcional)">
+
+<input type="text" id="alergias" placeholder="Alergias (opcional)">
+
+<input type="text" id="importante" placeholder="Información importante (opcional)">
 
 <button onclick="generarQR()">
 Generar Código QR
@@ -135,6 +141,9 @@ window.generarQR = async function() {
   let telefono = document.getElementById("telefono").value;
   let direccion = document.getElementById("direccion").value;
   let redes = document.getElementById("redes").value;
+  let medicamentos = document.getElementById("medicamentos").value;
+  let alergias = document.getElementById("alergias").value;
+  let importante = document.getElementById("importante").value;
 
   if(!nino || !apoderado || !telefono){
     alert("Complete los campos obligatorios.");
@@ -175,6 +184,9 @@ window.generarQR = async function() {
   "&telefono=" + encodeURIComponent(telefono) +
   "&direccion=" + encodeURIComponent(direccion) +
   "&redes=" + encodeURIComponent(redes);
+  "&medicamentos=" + encodeURIComponent(medicamentos) +
+  "&alergias=" + encodeURIComponent(alergias) +
+  "&importante=" + encodeURIComponent(importante);
 
   let qrURL =
   "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
