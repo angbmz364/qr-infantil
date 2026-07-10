@@ -183,16 +183,16 @@ body: JSON.stringify({
   console.log("Error Google Sheets:", error);
 });
 
-  let enlace =
-  "https://celaanaya52-sudo.github.io/qr-infantil/perfil.html?" +
-  "nino=" + encodeURIComponent(nino) +
-  "&apoderado=" + encodeURIComponent(apoderado) +
-  "&telefono=" + encodeURIComponent(telefono) +
-  "&direccion=" + encodeURIComponent(direccion) +
-  "&redes=" + encodeURIComponent(redes);
-  "&medicamentos=" + encodeURIComponent(medicamentos) +
-  "&alergias=" + encodeURIComponent(alergias) +
-  "&importante=" + encodeURIComponent(importante);
+let enlace =
+"https://celaanaya52-sudo.github.io/qr-infantil/perfil.html?" +
+"nino=" + encodeURIComponent(nino) +
+"&apoderado=" + encodeURIComponent(apoderado) +
+"&telefono=" + encodeURIComponent(telefono) +
+"&direccion=" + encodeURIComponent(direccion) +
+"&redes=" + encodeURIComponent(redes) +
+"&medicamentos=" + encodeURIComponent(medicamentos) +
+"&alergias=" + encodeURIComponent(alergias) +
+"&importante=" + encodeURIComponent(importante);
 
   let qrURL =
   "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
