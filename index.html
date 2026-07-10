@@ -150,6 +150,17 @@ window.generarQR = async function() {
     return;
   }
 
+  console.log(
+    `Niño: ${nino},
+    Apoderado: ${apoderado},
+    Teléfono: ${telefono},
+    Dirección: ${direccion},
+    "Red Social": ${redes},
+     Medicamentos: ${medicamentos},
+     Alergias: ${alergias},
+     Importante: ${importante},`
+  )
+
   await addDoc(collection(db, "REGISTROS"), {
     Niño: nino,
     Apoderado: apoderado,
