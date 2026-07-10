@@ -1,6 +1,7 @@
 const $$ = (s) => document.getElementById(s); 
 const resultBox = $$("resultado");
 
+let buttonState = false;
 
 const button = $$("generateQR");
 
@@ -18,7 +19,6 @@ const showResult = (qrURL) => {
 }
 
 button.addEventListener("click", async () => {
-  let buttonState = false;
   let nino = $$("nino").value;
   let apoderado = $$("apoderado").value;
   let telefono = $$("telefono").value;
