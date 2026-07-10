@@ -156,6 +156,9 @@ window.generarQR = async function() {
     Teléfono: telefono,
     Dirección: direccion,
     "Red Social": redes,
+     Medicamentos: medicamentos,
+     Alergias: alergias,
+     Importante: importante,
     Fecha: new Date().toISOString()
   });
     fetch(
@@ -165,13 +168,16 @@ window.generarQR = async function() {
     headers: {
       "Content-Type": "text/plain"
     },
-    body: JSON.stringify({
-      nino: nino,
-      apoderado: apoderado,
-      telefono: telefono,
-      direccion: direccion,
-      redes: redes
-    })
+body: JSON.stringify({
+  nino: nino,
+  apoderado: apoderado,
+  telefono: telefono,
+  direccion: direccion,
+  redes: redes,
+  medicamentos: medicamentos,
+  alergias: alergias,
+  importante: importante
+})
   }
 ).catch(error => {
   console.log("Error Google Sheets:", error);
