@@ -1,15 +1,6 @@
 const $$ = (s) => document.getElementById(s); 
 const resultBox = $$("resultado");
 
-let buttonState = false;
-let nino = $$("nino").value;
-let apoderado = $$("apoderado").value;
-let telefono = $$("telefono").value;
-let direccion = $$("direccion").value;
-let redes = $$("redes").value;
-let medicamentos = $$("medicamentos").value;
-let alergias = $$("alergias").value;
-let importante = $$("importante").value;
 
 const button = $$("generateQR");
 
@@ -19,14 +10,23 @@ const toggleButtonState = () => {
 
 const showResult = (qrURL) => {
   resultBox.innerHTML = `
-    <h3>QR generado</h3>
-    <img src="${qrURL}"> 
+  <h3>QR generado</h3>
+  <img src="${qrURL}"> 
   `
-
+  
   toggleButtonState();
 }
 
-button.addEventListener("click", () => {
+button.addEventListener("click", async () => {
+  let buttonState = false;
+  let nino = $$("nino").value;
+  let apoderado = $$("apoderado").value;
+  let telefono = $$("telefono").value;
+  let direccion = $$("direccion").value;
+  let redes = $$("redes").value;
+  let medicamentos = $$("medicamentos").value;
+  let alergias = $$("alergias").value;
+  let importante = $$("importante").value;
   
   if (buttonState) return;
   toggleButtonState();
